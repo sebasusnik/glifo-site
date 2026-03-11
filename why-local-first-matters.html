@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why local-first matters — Glifo site</title>
+<meta name="description" content="Notes on building software, writing tools, and the craft of making things simple. I work on Glifo, a native markdown editor for macOS.">
+<meta property="og:description" content="Notes on building software, writing tools, and the craft of making things simple. I work on Glifo, a native markdown editor for macOS.">
+<meta name="author" content="Sebastian Susnik">
+<meta property="og:title" content="Why local-first matters — Glifo site">
+<meta property="og:type" content="article">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%E2%9C%8D%EF%B8%8F%3C%2Ftext%3E%3C%2Fsvg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" id="hljs-light" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css">
+<link rel="stylesheet" id="hljs-dark" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark-dimmed.min.css" disabled>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<link rel="stylesheet" href="style.css">
+<style>
+:root {
+  --accent: hsl(259, 62%, 45%);
+  --accent-hover: hsl(259, 62%, 37%);
+  --ring: hsl(259, 62%, 45%);
+  --background: hsl(259, 24.8%, 96.7%);
+  --card: hsl(259, 21.7%, 99.4%);
+  --muted: hsl(259, 18.6%, 94.1%);
+}
+:root.dark {
+  --accent: hsl(259, 62%, 72%);
+  --accent-hover: hsl(259, 62%, 82%);
+  --ring: hsl(259, 62%, 72%);
+  --background: hsl(259, 18.6%, 6.9%);
+  --card: hsl(259, 15.5%, 8.6%);
+  --muted: hsl(259, 12.4%, 12.6%);
+}
+::selection { background: hsla(259, 62%, 50%, 0.09); }
+.listing-search:focus { border-color: var(--accent); box-shadow: 0 0 0 2px hsla(259, 62%, 50%, 0.09); }
+.prose blockquote { border-left-color: hsla(259, 62%, 50%, 0.32); }
+.divider { border-top-color: hsla(259, 62%, 50%, 0.09); }
+.post-card:hover .post-card-title,
+.listing-item a:hover .listing-title,
+.back-link:hover { color: color-mix(in srgb, var(--accent) 63%, var(--foreground)); }
+.see-all { color: color-mix(in srgb, var(--accent) 63%, var(--muted-foreground)); }
+.section-label { color: color-mix(in srgb, var(--accent) 50%, var(--muted-foreground)); }
+.site-nav { border-bottom-color: hsla(259, 62%, 50%, 0.06); }
+.site-title:hover { color: color-mix(in srgb, var(--accent) 63%, var(--foreground)); }
+.footer-inner a:hover { color: color-mix(in srgb, var(--accent) 63%, var(--foreground)); }
+.hero-desc a,
+.home-desc a,
+.listing-desc a { color: color-mix(in srgb, var(--accent) 63%, var(--foreground)); text-decoration-color: color-mix(in srgb, var(--accent) 50%, transparent); }
+.hero-desc a:hover,
+.home-desc a:hover,
+.listing-desc a:hover { text-decoration-color: color-mix(in srgb, var(--accent) 63%, var(--foreground)); }
+.prose pre { background: hsl(259, 34.1%, 94.4%); border-color: hsla(259, 62%, 50%, 0.08); }
+:root.dark .prose pre { background: hsl(259, 24.8%, 11.3%); border-color: hsla(259, 62%, 50%, 0.08); }
+.prose code { background: hsl(259, 34.1%, 94.4%); border-color: hsla(259, 62%, 50%, 0.08); }
+:root.dark .prose code { background: hsl(259, 24.8%, 11.3%); border-color: hsla(259, 62%, 50%, 0.08); }
+</style>
+</head>
+<body>
+<nav class="site-nav">
+<div class="nav-inner">
+<a href="index.html" class="site-title">Glifo site</a>
+<button class="nav-toggle" aria-label="Menu"><i data-lucide="menu"></i></button>
+<div class="nav-right">
+<a href="index.html" class="nav-link">Home</a>
+<a href="posts.html" class="nav-link">Posts</a>
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><i data-lucide="moon"></i></button>
+</div>
+</div>
+</nav>
+<main class="content">
+<a href="posts.html" class="back-link"><i data-lucide="arrow-left"></i> All posts</a>
+<article>
+<header class="article-header">
+<h1>Why local-first matters</h1>
+<div class="article-meta"><time>2026-03-07</time></div>
+</header>
+<div class="prose">
+<p>Every note-taking app eventually asks the same question: where does the data live? The answer shapes everything — from latency to privacy to what happens when the company shuts down.</p>
+<p>Glifo's answer is simple: <strong>your files live on your machine</strong>. No server, no sync layer, no account. Open the vault folder in Finder and you'll see plain <code>.md</code> files organized exactly how you left them.</p>
+<h2>The problem with cloud-first</h2>
+<p>Cloud-native note apps optimize for collaboration and cross-device access. Those are real features. But the trade-offs are significant:</p>
+<ul>
+<li>Latency on every keystroke (even if small, it adds up)</li>
+<li>Data lives in someone else's database, in a proprietary format</li>
+<li>Offline support is an afterthought — "conflict resolution" is a phrase you'll learn</li>
+<li>The service can change pricing, features, or shut down entirely</li>
+</ul>
+<blockquote>
+<p>The fastest sync engine is no sync engine. The most reliable server is the filesystem.</p>
+</blockquote>
+<h2>What local-first gives you</h2>
+<p>Speed is the obvious win. Reading a file from disk takes microseconds. There's no loading spinner, no "syncing…" indicator, no optimistic UI that might roll back.</p>
+<p>But the deeper advantage is <strong>ownership</strong>. Your notes are files. You can:</p>
+<ul>
+<li>Open them in any editor</li>
+<li>Search them with <code>grep</code></li>
+<li>Version them with <code>git</code></li>
+<li>Back them up however you want</li>
+<li>Write scripts that process them</li>
+</ul>
+<p>This isn't theoretical portability — it's actual, right-now, zero-effort portability.</p>
+<h2>Git as the sync layer</h2>
+<p>When you enable git in Glifo, every save creates a commit. This gives you:</p>
+<table><thead><tr><th>Feature</th><th>How it works</th></tr></thead><tbody>
+<tr><td>Version history</td><td>Browse the full timeline of any note</td></tr>
+<tr><td>Diff view</td><td>See exactly what changed, line by line</td></tr>
+<tr><td>Restore</td><td>One-click rollback to any previous version</td></tr>
+<tr><td>Sync</td><td>Push to a private GitHub repo — or <a href="publishing-markdown-to-the-web.html">publish your notes</a></td></tr>
+</tbody></table>
+<p>You get version control, backup, and optional sync — all from a tool that already exists and that you probably already know.</p>
+<h3>Implementation detail</h3>
+<p>Glifo uses <code>libgit2</code> through the <code>git2</code> crate in Rust (see <a href="tauri-react-and-rust-the-stack.html">the stack</a>). Commits are created programmatically on save — no shell commands, no git CLI dependency. The entire history panel reads from the repo directly.</p>
+<pre><code class="language-rust">// Every save triggers an auto-commit
+pub fn git_auto_commit(vault_path: String, file: String) -&gt; Result&lt;(), String&gt; {
+    let repo = open_or_init(&amp;vault_path)?;
+    let mut index = repo.index().map_err(|e| e.to_string())?;
+    index.add_path(Path::new(&amp;file)).map_err(|e| e.to_string())?;
+    index.write().map_err(|e| e.to_string())?;
+    // ... create tree, commit
+    Ok(())
+}
+</code></pre>
+<h2>The trade-off</h2>
+<p>Local-first means no real-time collaboration. You can't have two people editing the same note simultaneously — at least not without layering on a CRDT or OT system, which adds exactly the complexity we're trying to avoid.</p>
+<p>For a personal note-taking app, that's fine. Glifo is for <em>your</em> notes, on <em>your</em> machine. If you need multiplayer, there are great tools for that. This isn't one of them — by design.</p>
+<hr />
+<p>Local-first isn't a limitation. It's a choice to optimize for speed, ownership, and longevity over convenience features that most people don't need most of the time.</p>
+<ul>
+<li><input disabled="" type="checkbox" checked=""/>
+Ship version history panel</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Add diff gutter markers</li>
+<li><input disabled="" type="checkbox"/>
+Add optional remote sync via git push</li>
+<li><input disabled="" type="checkbox"/>
+Document the git integration</li>
+</ul>
+
+</div>
+</article>
+</main>
+<footer class="site-footer">
+<div class="footer-inner">
+<span>Glifo site &mdash; Sebastian Susnik</span>
+<span>Published with <a href="https://glifo.app">Glifo</a></span>
+</div>
+</footer>
+<script>
+(function(){
+const t = document.getElementById("themeToggle");
+const r = document.documentElement;
+const hl = document.getElementById("hljs-light");
+const hd = document.getElementById("hljs-dark");
+function setDark(d, save) {
+  if (d) {
+    r.classList.add("dark");
+    hl.disabled = true;
+    hd.disabled = false;
+  } else {
+    r.classList.remove("dark");
+    hl.disabled = false;
+    hd.disabled = true;
+  }
+  t.innerHTML = `<i data-lucide="${d ? "sun" : "moon"}"></i>`;
+  lucide.createIcons({ nameAttr: "data-lucide", attrs: { class: "lucide" } });
+  if (save)
+    try {
+      localStorage.setItem("theme", d ? "dark" : "light");
+    } catch {}
+}
+let saved = null;
+try {
+  saved = localStorage.getItem("theme");
+} catch {}
+if (saved === "dark") setDark(true);
+else if (saved === "light") setDark(false);
+else if (window.matchMedia("(prefers-color-scheme:dark)").matches)
+  setDark(true);
+t.addEventListener("click", () => {
+  setDark(!r.classList.contains("dark"), true);
+});
+const navToggle = document.querySelector(".nav-toggle");
+const navContainer = document.querySelector(".nav-right");
+if (navToggle && navContainer)
+  navToggle.addEventListener("click", () => {
+    navContainer.classList.toggle("open");
+  });
+hljs.highlightAll();
+const lbOverlay = document.createElement("div");
+lbOverlay.className = "lightbox";
+const lbImg = document.createElement("img");
+const lbClose = document.createElement("button");
+lbClose.className = "lightbox-close";
+lbClose.innerHTML = "&#10005;";
+lbClose.setAttribute("aria-label", "Close");
+lbOverlay.appendChild(lbClose);
+lbOverlay.appendChild(lbImg);
+document.body.appendChild(lbOverlay);
+function closeLb() {
+  lbOverlay.classList.remove("active");
+  setTimeout(() => {
+    lbOverlay.style.display = "none";
+  }, 200);
+}
+lbClose.addEventListener("click", (e) => {
+  e.stopPropagation();
+  closeLb();
+});
+lbOverlay.addEventListener("click", (e) => {
+  if (e.target === lbOverlay) closeLb();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && lbOverlay.classList.contains("active")) closeLb();
+});
+document.querySelectorAll(".prose img").forEach((img) => {
+  img.addEventListener("click", () => {
+    lbImg.src = img.src;
+    lbOverlay.style.display = "flex";
+    requestAnimationFrame(() => {
+      lbOverlay.classList.add("active");
+    });
+  });
+});
+document.querySelectorAll("pre").forEach((pre) => {
+  const code = pre.querySelector("code");
+  if (!code) return;
+  const m = code.className.match(/language-(\S+)/);
+  let lang = m ? m[1] : "";
+  if (lang === "plaintext" || lang === "undefined") lang = "";
+  if (lang) {
+    const lb = document.createElement("span");
+    lb.className = "code-lang";
+    lb.textContent = lang;
+    pre.insertBefore(lb, code);
+  }
+  const btn = document.createElement("button");
+  btn.className = "code-copy-btn";
+  btn.innerHTML = '<i data-lucide="copy" class="lucide"></i>';
+  btn.addEventListener("click", () => {
+    navigator.clipboard.writeText(code.textContent || "").then(() => {
+      btn.innerHTML = '<i data-lucide="check" class="lucide"></i>';
+      lucide.createIcons({
+        nodes: [btn],
+        nameAttr: "data-lucide",
+        attrs: { class: "lucide" },
+      });
+      setTimeout(() => {
+        btn.innerHTML = '<i data-lucide="copy" class="lucide"></i>';
+        lucide.createIcons({
+          nodes: [btn],
+          nameAttr: "data-lucide",
+          attrs: { class: "lucide" },
+        });
+      }, 1500);
+    });
+  });
+  pre.insertBefore(btn, code);
+});
+lucide.createIcons({nameAttr:'data-lucide',attrs:{class:'lucide'}});
+const si = document.getElementById("listingSearch");
+if (si) {
+  const items = document.querySelectorAll(".post-card");
+  si.addEventListener("input", function () {
+    const q = this.value.toLowerCase();
+    items.forEach((item) => {
+      item.style.display = item.textContent.toLowerCase().includes(q)
+        ? ""
+        : "none";
+    });
+  });
+}
+
+})();
+</script>
+</body>
+</html>

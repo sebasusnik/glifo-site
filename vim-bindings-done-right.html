@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vim bindings done right — Glifo site</title>
+<meta name="description" content="Notes on building software, writing tools, and the craft of making things simple. I work on Glifo, a native markdown editor for macOS.">
+<meta property="og:description" content="Notes on building software, writing tools, and the craft of making things simple. I work on Glifo, a native markdown editor for macOS.">
+<meta name="author" content="Sebastian Susnik">
+<meta property="og:title" content="Vim bindings done right — Glifo site">
+<meta property="og:type" content="article">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%E2%9C%8D%EF%B8%8F%3C%2Ftext%3E%3C%2Fsvg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" id="hljs-light" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css">
+<link rel="stylesheet" id="hljs-dark" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark-dimmed.min.css" disabled>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<link rel="stylesheet" href="style.css">
+<style>
+:root {
+  --accent: hsl(259, 62%, 45%);
+  --accent-hover: hsl(259, 62%, 37%);
+  --ring: hsl(259, 62%, 45%);
+  --background: hsl(259, 24.8%, 96.7%);
+  --card: hsl(259, 21.7%, 99.4%);
+  --muted: hsl(259, 18.6%, 94.1%);
+}
+:root.dark {
+  --accent: hsl(259, 62%, 72%);
+  --accent-hover: hsl(259, 62%, 82%);
+  --ring: hsl(259, 62%, 72%);
+  --background: hsl(259, 18.6%, 6.9%);
+  --card: hsl(259, 15.5%, 8.6%);
+  --muted: hsl(259, 12.4%, 12.6%);
+}
+::selection { background: hsla(259, 62%, 50%, 0.09); }
+.listing-search:focus { border-color: var(--accent); box-shadow: 0 0 0 2px hsla(259, 62%, 50%, 0.09); }
+.prose blockquote { border-left-color: hsla(259, 62%, 50%, 0.32); }
+.divider { border-top-color: hsla(259, 62%, 50%, 0.09); }
+.post-card:hover .post-card-title,
+.listing-item a:hover .listing-title,
+.back-link:hover { color: color-mix(in srgb, var(--accent) 63%, var(--foreground)); }
+.see-all { color: color-mix(in srgb, var(--accent) 63%, var(--muted-foreground)); }
+.section-label { color: color-mix(in srgb, var(--accent) 50%, var(--muted-foreground)); }
+.site-nav { border-bottom-color: hsla(259, 62%, 50%, 0.06); }
+.site-title:hover { color: color-mix(in srgb, var(--accent) 63%, var(--foreground)); }
+.footer-inner a:hover { color: color-mix(in srgb, var(--accent) 63%, var(--foreground)); }
+.hero-desc a,
+.home-desc a,
+.listing-desc a { color: color-mix(in srgb, var(--accent) 63%, var(--foreground)); text-decoration-color: color-mix(in srgb, var(--accent) 50%, transparent); }
+.hero-desc a:hover,
+.home-desc a:hover,
+.listing-desc a:hover { text-decoration-color: color-mix(in srgb, var(--accent) 63%, var(--foreground)); }
+.prose pre { background: hsl(259, 34.1%, 94.4%); border-color: hsla(259, 62%, 50%, 0.08); }
+:root.dark .prose pre { background: hsl(259, 24.8%, 11.3%); border-color: hsla(259, 62%, 50%, 0.08); }
+.prose code { background: hsl(259, 34.1%, 94.4%); border-color: hsla(259, 62%, 50%, 0.08); }
+:root.dark .prose code { background: hsl(259, 24.8%, 11.3%); border-color: hsla(259, 62%, 50%, 0.08); }
+</style>
+</head>
+<body>
+<nav class="site-nav">
+<div class="nav-inner">
+<a href="index.html" class="site-title">Glifo site</a>
+<button class="nav-toggle" aria-label="Menu"><i data-lucide="menu"></i></button>
+<div class="nav-right">
+<a href="index.html" class="nav-link">Home</a>
+<a href="posts.html" class="nav-link">Posts</a>
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><i data-lucide="moon"></i></button>
+</div>
+</div>
+</nav>
+<main class="content">
+<a href="posts.html" class="back-link"><i data-lucide="arrow-left"></i> All posts</a>
+<article>
+<header class="article-header">
+<h1>Vim bindings done right</h1>
+<div class="article-meta"><time>2026-03-07</time></div>
+</header>
+<div class="prose">
+<p>Most apps that claim "Vim support" give you <code>hjkl</code> and call it a day. Glifo takes it further — a full space-leader system that makes every action accessible from normal mode.</p>
+<h2>The space-leader system</h2>
+<p>In Vim, the leader key is a namespace for custom commands. Glifo uses <code>Space</code> as the leader, which means every app action is two keystrokes away:</p>
+<table><thead><tr><th>Sequence</th><th>Action</th></tr></thead><tbody>
+<tr><td><code>Space I</code></td><td>Enter insert mode</td></tr>
+<tr><td><code>Space Z</code></td><td>Toggle zen mode</td></tr>
+<tr><td><code>Space B</code></td><td>Toggle sidebar</td></tr>
+<tr><td><code>Space S</code></td><td>Toggle split view</td></tr>
+<tr><td><code>Space E</code></td><td>Toggle preview</td></tr>
+<tr><td><code>Space F</code></td><td>Focus sidebar search</td></tr>
+<tr><td><code>Space W</code></td><td>Save note</td></tr>
+<tr><td><code>Space N</code></td><td>New note</td></tr>
+<tr><td><code>Space U</code></td><td>Undo</td></tr>
+<tr><td><code>Space R</code></td><td>Redo</td></tr>
+<tr><td><code>Space Y</code></td><td>Copy as HTML</td></tr>
+<tr><td><code>Space Q</code></td><td>Close current note</td></tr>
+<tr><td><code>Space /</code></td><td>Search within note</td></tr>
+</tbody></table>
+<p>This means you can create a note (<code>Space N</code>), write in insert mode, switch to split view (<code>Space S</code>), save (<code>Space W</code>), and close (<code>Space Q</code>) — all without touching the mouse.</p>
+<h2>Standard shortcuts</h2>
+<p>For non-Vim users, everything works with standard macOS shortcuts:</p>
+<table><thead><tr><th>Shortcut</th><th>Action</th></tr></thead><tbody>
+<tr><td><code>Cmd+N</code></td><td>New note</td></tr>
+<tr><td><code>Cmd+S</code></td><td>Save</td></tr>
+<tr><td><code>Cmd+,</code></td><td>Settings</td></tr>
+<tr><td><code>Cmd+B</code></td><td>Toggle sidebar</td></tr>
+<tr><td><code>Cmd+W</code></td><td>Close note</td></tr>
+<tr><td><code>Cmd+Z</code></td><td>Undo</td></tr>
+<tr><td><code>Cmd+Shift+Z</code></td><td>Redo</td></tr>
+</tbody></table>
+<h2>Search operators</h2>
+<p>The sidebar search builds <a href="how-chip-based-search-works.html">structured filter chips</a> from typed shortcuts:</p>
+<table><thead><tr><th>Input</th><th>Creates</th></tr></thead><tbody>
+<tr><td><code>#blog</code></td><td>Tag filter</td></tr>
+<tr><td><code>-#draft</code></td><td>Exclude tag</td></tr>
+<tr><td><code>/Projects</code></td><td>Folder scope</td></tr>
+<tr><td><code>modified:week</code></td><td>Modified this week</td></tr>
+<tr><td><code>is:untagged</code></td><td>Notes without tags</td></tr>
+<tr><td><code>has:code</code></td><td>Notes with code blocks</td></tr>
+<tr><td><code>type:drawing</code></td><td>Only drawings</td></tr>
+</tbody></table>
+<p>Press <code>Enter</code> to commit a chip. <code>Backspace</code> on an empty input removes the last chip.</p>
+<h2>Slash menu</h2>
+<p>Type <code>/</code> at the start of a line to open the block inserter:</p>
+<ul>
+<li>Heading 1, 2, 3</li>
+<li>Bullet list, numbered list, task list</li>
+<li>Code block, blockquote, table</li>
+<li>Horizontal rule</li>
+</ul>
+<p>No palette to memorize, no toolbar to hunt through. Type the trigger, pick the block, keep writing.</p>
+
+</div>
+</article>
+</main>
+<footer class="site-footer">
+<div class="footer-inner">
+<span>Glifo site &mdash; Sebastian Susnik</span>
+<span>Published with <a href="https://glifo.app">Glifo</a></span>
+</div>
+</footer>
+<script>
+(function(){
+const t = document.getElementById("themeToggle");
+const r = document.documentElement;
+const hl = document.getElementById("hljs-light");
+const hd = document.getElementById("hljs-dark");
+function setDark(d, save) {
+  if (d) {
+    r.classList.add("dark");
+    hl.disabled = true;
+    hd.disabled = false;
+  } else {
+    r.classList.remove("dark");
+    hl.disabled = false;
+    hd.disabled = true;
+  }
+  t.innerHTML = `<i data-lucide="${d ? "sun" : "moon"}"></i>`;
+  lucide.createIcons({ nameAttr: "data-lucide", attrs: { class: "lucide" } });
+  if (save)
+    try {
+      localStorage.setItem("theme", d ? "dark" : "light");
+    } catch {}
+}
+let saved = null;
+try {
+  saved = localStorage.getItem("theme");
+} catch {}
+if (saved === "dark") setDark(true);
+else if (saved === "light") setDark(false);
+else if (window.matchMedia("(prefers-color-scheme:dark)").matches)
+  setDark(true);
+t.addEventListener("click", () => {
+  setDark(!r.classList.contains("dark"), true);
+});
+const navToggle = document.querySelector(".nav-toggle");
+const navContainer = document.querySelector(".nav-right");
+if (navToggle && navContainer)
+  navToggle.addEventListener("click", () => {
+    navContainer.classList.toggle("open");
+  });
+hljs.highlightAll();
+const lbOverlay = document.createElement("div");
+lbOverlay.className = "lightbox";
+const lbImg = document.createElement("img");
+const lbClose = document.createElement("button");
+lbClose.className = "lightbox-close";
+lbClose.innerHTML = "&#10005;";
+lbClose.setAttribute("aria-label", "Close");
+lbOverlay.appendChild(lbClose);
+lbOverlay.appendChild(lbImg);
+document.body.appendChild(lbOverlay);
+function closeLb() {
+  lbOverlay.classList.remove("active");
+  setTimeout(() => {
+    lbOverlay.style.display = "none";
+  }, 200);
+}
+lbClose.addEventListener("click", (e) => {
+  e.stopPropagation();
+  closeLb();
+});
+lbOverlay.addEventListener("click", (e) => {
+  if (e.target === lbOverlay) closeLb();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && lbOverlay.classList.contains("active")) closeLb();
+});
+document.querySelectorAll(".prose img").forEach((img) => {
+  img.addEventListener("click", () => {
+    lbImg.src = img.src;
+    lbOverlay.style.display = "flex";
+    requestAnimationFrame(() => {
+      lbOverlay.classList.add("active");
+    });
+  });
+});
+document.querySelectorAll("pre").forEach((pre) => {
+  const code = pre.querySelector("code");
+  if (!code) return;
+  const m = code.className.match(/language-(\S+)/);
+  let lang = m ? m[1] : "";
+  if (lang === "plaintext" || lang === "undefined") lang = "";
+  if (lang) {
+    const lb = document.createElement("span");
+    lb.className = "code-lang";
+    lb.textContent = lang;
+    pre.insertBefore(lb, code);
+  }
+  const btn = document.createElement("button");
+  btn.className = "code-copy-btn";
+  btn.innerHTML = '<i data-lucide="copy" class="lucide"></i>';
+  btn.addEventListener("click", () => {
+    navigator.clipboard.writeText(code.textContent || "").then(() => {
+      btn.innerHTML = '<i data-lucide="check" class="lucide"></i>';
+      lucide.createIcons({
+        nodes: [btn],
+        nameAttr: "data-lucide",
+        attrs: { class: "lucide" },
+      });
+      setTimeout(() => {
+        btn.innerHTML = '<i data-lucide="copy" class="lucide"></i>';
+        lucide.createIcons({
+          nodes: [btn],
+          nameAttr: "data-lucide",
+          attrs: { class: "lucide" },
+        });
+      }, 1500);
+    });
+  });
+  pre.insertBefore(btn, code);
+});
+lucide.createIcons({nameAttr:'data-lucide',attrs:{class:'lucide'}});
+const si = document.getElementById("listingSearch");
+if (si) {
+  const items = document.querySelectorAll(".post-card");
+  si.addEventListener("input", function () {
+    const q = this.value.toLowerCase();
+    items.forEach((item) => {
+      item.style.display = item.textContent.toLowerCase().includes(q)
+        ? ""
+        : "none";
+    });
+  });
+}
+
+})();
+</script>
+</body>
+</html>
