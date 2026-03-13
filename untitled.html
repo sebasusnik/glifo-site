@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Posts — Glifo site</title>
+<title>Untitled — Glifo site</title>
 <meta name="description" content="Notes on building software, writing tools, and the craft of making things simple. I work on Glifo, a native markdown editor for macOS.">
 <meta property="og:description" content="Notes on building software, writing tools, and the craft of making things simple. I work on Glifo, a native markdown editor for macOS.">
 <meta name="author" content="Sebastian Susnik">
-<meta property="og:title" content="Posts — Glifo site">
+<meta property="og:title" content="Untitled — Glifo site">
 <meta property="og:type" content="article">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%E2%9C%8D%EF%B8%8F%3C%2Ftext%3E%3C%2Fsvg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,33 +26,22 @@
 <button class="nav-toggle" aria-label="Menu"><i data-lucide="menu"></i></button>
 <div class="nav-right">
 <a href="index.html" class="nav-link">Home</a>
-<a href="posts.html" class="nav-link active">Posts</a>
+<a href="posts.html" class="nav-link">Posts</a>
 <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><i data-lucide="moon"></i></button>
 </div>
 </div>
 </nav>
 <main class="content">
-<div class="listing-header">
-<h1>Posts</h1>
-<p class="listing-desc">Notes on building software, writing tools, and the craft of making things simple. I work on <a href="https://sebasusnik.github.io/glifo-site">Glifo</a>, a native markdown editor for macOS.</p>
-</div>
-<input type="text" id="listingSearch" class="listing-search" placeholder="Search posts…" autocomplete="off">
-<div class="post-grid">
-<a href="untitled.html" class="post-card"><div class="post-card-text"><span class="post-card-title">Untitled</span></div><time class="post-card-date">2026-03-11</time></a>
-<a href="git-integration-version-history-without-the-terminal.html" class="post-card"><div class="post-card-text"><span class="post-card-title">Git integration — version history without the terminal</span><span class="post-card-excerpt">Git is the best version control system ever built. It's also one of the worst user interfaces ever built. Glifo bridges the gap: every save creates a commit,…</span></div><time class="post-card-date">2026-03-07</time></a>
-<a href="the-interface-split-zen-and-everything-between.html" class="post-card"><div class="post-card-text"><span class="post-card-title">The interface — split, zen, and everything between</span><span class="post-card-excerpt">Most editors give you one mode: a sidebar and a text area. Glifo gives you three ways to work, each designed for a different kind of attention. ## Split mode…</span></div><time class="post-card-date">2026-03-07</time></a>
-<a href="how-chip-based-search-works.html" class="post-card"><div class="post-card-text"><span class="post-card-title">How chip-based search works</span><span class="post-card-excerpt">Most note apps give you a search bar that filters by title or full-text. Glifo uses a different model: structured filter chips that compose into complex…</span></div><time class="post-card-date">2026-03-07</time></a>
-<a href="tauri-react-and-rust-the-stack.html" class="post-card"><div class="post-card-text"><span class="post-card-title">Tauri, React, and Rust — the stack</span><span class="post-card-excerpt">Every app is a bet on a stack. Glifo bets on [[The case against Electron|Tauri]] for the shell, React for the UI, and Rust for everything that touches the…</span></div><time class="post-card-date">2026-03-07</time></a>
-<a href="excalidraw-as-a-first-class-citizen.html" class="post-card"><div class="post-card-text"><span class="post-card-title">Excalidraw as a first-class citizen</span><span class="post-card-excerpt">Most note-taking apps treat drawings as second-class — upload an image, link to an external tool, or use a stripped-down canvas. Glifo embeds Excalidraw…</span></div><time class="post-card-date">2026-03-07</time></a>
-<a href="frosted-glass-on-macos-with-nsvisualeffectview.html" class="post-card"><div class="post-card-text"><span class="post-card-title">Frosted glass on macOS with NSVisualEffectView</span><span class="post-card-excerpt">Most "frosted glass" effects on the web are CSS hacks — a backdrop-filter: blur() that approximates transparency. On macOS, the real thing exists:…</span></div><time class="post-card-date">2026-03-07</time></a>
-<a href="the-case-against-electron.html" class="post-card"><div class="post-card-text"><span class="post-card-title">The case against Electron</span><span class="post-card-excerpt">Every note-taking app I've used felt slow in ways that were hard to pin down. Not seconds-slow — milliseconds-slow. A subtle lag between pressing a key and…</span></div><time class="post-card-date">2026-03-07</time></a>
-<a href="designing-a-color-system-from-one-hex-value.html" class="post-card"><div class="post-card-text"><span class="post-card-title">Designing a color system from one hex value</span><span class="post-card-excerpt">Most apps ship with a fixed palette — pick "dark mode" or "light mode" and that's it. Glifo takes a different approach: you provide a single hex color, and…</span></div><time class="post-card-date">2026-03-07</time></a>
-<a href="publishing-markdown-to-the-web.html" class="post-card"><div class="post-card-text"><span class="post-card-title">Publishing markdown to the web</span><span class="post-card-excerpt">Most static site generators ask you to learn a build system, install dependencies, and maintain config files. Glifo takes a different approach: you write…</span></div><time class="post-card-date">2026-03-07</time></a>
-<a href="vim-bindings-done-right.html" class="post-card"><div class="post-card-text"><span class="post-card-title">Vim bindings done right</span><span class="post-card-excerpt">Most apps that claim "Vim support" give you hjkl and call it a day. Glifo takes it further — a full space-leader system that makes every action accessible…</span></div><time class="post-card-date">2026-03-07</time></a>
-<a href="why-local-first-matters.html" class="post-card"><div class="post-card-text"><span class="post-card-title">Why local-first matters</span><span class="post-card-excerpt">Every note-taking app eventually asks the same question: where does the data live? The answer shapes everything — from latency to privacy to what happens…</span></div><time class="post-card-date">2026-03-07</time></a>
-<a href="building-tools-for-thought.html" class="post-card"><div class="post-card-text"><span class="post-card-title">Building tools for thought</span><span class="post-card-excerpt">I've spent the last year building a note-taking app because none of the existing ones felt right. Obsidian is powerful but heavy. iA Writer is beautiful but…</span></div><time class="post-card-date">2026-03-07</time></a>
+<a href="posts.html" class="back-link"><i data-lucide="arrow-left"></i> All posts</a>
+<article>
+<header class="article-header">
+<h1>Untitled</h1>
+<div class="article-meta"><time>2026-03-11</time></div>
+</header>
+<div class="prose">
 
 </div>
+</article>
 </main>
 <footer class="site-footer">
 <div class="footer-inner">

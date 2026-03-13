@@ -18,53 +18,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
 <link rel="stylesheet" href="style.css">
-<style>
-:root {
-  --accent: hsl(255, 46%, 27%);
-  --accent-hover: hsl(255, 46%, 19%);
-  --ring: hsl(255, 46%, 27%);
-  --background: hsl(255, 18.2%, 96.7%);
-  --card: hsl(255, 15.9%, 99.4%);
-  --muted: hsl(255, 13.7%, 94.1%);
-}
-:root.dark {
-  --accent: hsl(255, 46%, 65%);
-  --accent-hover: hsl(255, 46%, 75%);
-  --ring: hsl(255, 46%, 65%);
-  --background: hsl(255, 13.7%, 6.9%);
-  --card: hsl(255, 11.4%, 8.6%);
-  --muted: hsl(255, 9.1%, 12.6%);
-}
-::selection { background: hsla(255, 46%, 50%, 0.09); }
-.listing-search:focus { border-color: var(--accent); box-shadow: 0 0 0 2px hsla(255, 46%, 50%, 0.09); }
-.prose blockquote { border-left-color: hsla(255, 46%, 50%, 0.32); }
-.divider { border-top-color: hsla(255, 46%, 50%, 0.09); }
-.post-card:hover .post-card-title,
-.listing-item a:hover .listing-title,
-.back-link:hover { color: color-mix(in srgb, var(--accent) 63%, var(--foreground, var(--text))); }
-.see-all { color: color-mix(in srgb, var(--accent) 63%, var(--muted-foreground, var(--text-2))); }
-.section-label { color: color-mix(in srgb, var(--accent) 50%, var(--muted-foreground, var(--text-2))); }
-.site-nav { border-bottom-color: hsla(255, 46%, 50%, 0.06); }
-.site-title:hover { color: color-mix(in srgb, var(--accent) 63%, var(--foreground, var(--text))); }
-.footer-inner a:hover { color: color-mix(in srgb, var(--accent) 63%, var(--foreground, var(--text))); }
-.hero-desc a,
-.home-desc a,
-.listing-desc a { color: color-mix(in srgb, var(--accent) 63%, var(--foreground, var(--text))); text-decoration-color: color-mix(in srgb, var(--accent) 50%, transparent); }
-.hero-desc a:hover,
-.home-desc a:hover,
-.listing-desc a:hover { text-decoration-color: color-mix(in srgb, var(--accent) 63%, var(--foreground, var(--text))); }
-.prose pre,
-.article-body pre { background: hsl(255, 25.0%, 94.4%); border-color: hsla(255, 46%, 50%, 0.08); }
-:root.dark .prose pre,
-:root.dark .article-body pre { background: hsl(255, 18.2%, 11.3%); border-color: hsla(255, 46%, 50%, 0.08); }
-.prose code,
-.article-body code { background: hsl(255, 25.0%, 94.4%); border-color: hsla(255, 46%, 50%, 0.08); }
-:root.dark .prose code,
-:root.dark .article-body code { background: hsl(255, 18.2%, 11.3%); border-color: hsla(255, 46%, 50%, 0.08); }
-.article-body blockquote { border-left-color: hsla(255, 46%, 50%, 0.32); }
-.article-body a { color: var(--accent); }
-.article-body a:hover { color: var(--accent-hover); }
-</style>
 </head>
 <body>
 <nav class="site-nav">
@@ -92,12 +45,12 @@
 <hr class="divider">
 <p class="section-label">Recent</p>
 <div class="post-grid">
+<a href="untitled.html" class="post-card"><span class="post-card-title">Untitled</span><time class="post-card-date">2026-03-11</time></a>
 <a href="git-integration-version-history-without-the-terminal.html" class="post-card"><span class="post-card-title">Git integration — version history without the terminal</span><time class="post-card-date">2026-03-07</time></a>
 <a href="the-interface-split-zen-and-everything-between.html" class="post-card"><span class="post-card-title">The interface — split, zen, and everything between</span><time class="post-card-date">2026-03-07</time></a>
 <a href="how-chip-based-search-works.html" class="post-card"><span class="post-card-title">How chip-based search works</span><time class="post-card-date">2026-03-07</time></a>
 <a href="tauri-react-and-rust-the-stack.html" class="post-card"><span class="post-card-title">Tauri, React, and Rust — the stack</span><time class="post-card-date">2026-03-07</time></a>
 <a href="excalidraw-as-a-first-class-citizen.html" class="post-card"><span class="post-card-title">Excalidraw as a first-class citizen</span><time class="post-card-date">2026-03-07</time></a>
-<a href="frosted-glass-on-macos-with-nsvisualeffectview.html" class="post-card"><span class="post-card-title">Frosted glass on macOS with NSVisualEffectView</span><time class="post-card-date">2026-03-07</time></a>
 
 </div>
 <a href="posts.html" class="see-all">All posts &rarr;</a>
